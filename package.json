@@ -1,0 +1,28 @@
+{
+  "name": "u",
+  "version": "0.0.0",
+  "description": "General purpose utility functions.",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adagit94/U.git"
+  },
+  "keywords": [
+    "utility",
+    "utils",
+    "helpers"
+  ],
+  "author": "Adam Pelc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adagit94/U/issues"
+  },
+  "homepage": "https://github.com/adagit94/U#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0",
+    "typescript": "^5.4.5"
+  }
+}
