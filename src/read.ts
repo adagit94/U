@@ -5,25 +5,36 @@
  */
 export const recurseObjects = (
   obj: object,
-  fn: (key: string | number, val: unknown, obj: object) => void
+  fn: (
+    key: string | number,
+    val: unknown,
+    obj: object,
+    keyPath: (string | number)[]
+  ) => void
 ) => {
-  if (Array.isArray(obj)) {
-    obj.forEach((item, index) => {
-      fn(index, item, obj)
+  ;(function recurse(obj: object, keyPath: (string | number)[] = []) {
+    if (Array.isArray(obj)) {
+      obj.forEach((item, index) => {
+        const kp = [...keyPath, index]
 
-      if (typeof item === "object" && item !== null) {
-        recurseObjects(item, fn)
-      }
-    })
-  } else if (typeof obj === "object" && obj !== null) {
-    Object.entries(obj).forEach(([key, val]) => {
-      fn(key, val, obj)
+        fn(index, item, obj, kp)
 
-      if (typeof val === "object" && val !== null) {
-        recurseObjects(val, fn)
-      }
-    })
-  }
+        if (typeof item === "object" && item !== null) {
+          recurse(item, kp)
+        }
+      })
+    } else if (typeof obj === "object" && obj !== null) {
+      Object.entries(obj).forEach(([key, val]) => {
+        const kp = [...keyPath, key]
+
+        fn(key, val, obj, kp)
+
+        if (typeof val === "object" && val !== null) {
+          recurse(val, kp)
+        }
+      })
+    }
+  })(obj)
 }
 
 /**
@@ -62,11 +73,11 @@ export const stepArrays = <T extends unknown[]>(
 
   for (let i = start; i < longestArrLength; i++) {
     let values: T[number][] | undefined
-    
+
     for (const [step, fn] of steps) {
       if (i % step === 0) {
-        values ?? (values = arrs.map(arr => arr[i]))
-        
+        values ?? (values = arrs.map((arr) => arr[i]))
+
         fn(values, i, step)
       }
     }
