@@ -3,7 +3,7 @@
  * @param obj An array or record object from which recursion starts.
  * @param fn Function that is triggered for every value.
  */
-export const recurseObjects = (
+export const recurseObject = (
   obj: object,
   fn: (
     key: string | number,
@@ -35,6 +35,26 @@ export const recurseObjects = (
       })
     }
   })(obj)
+}
+
+export const searchForDuplicities = (obj: Record<PropertyKey, unknown> | unknown[]) => {
+  let entities: Record<string, unknown[]> = {}
+  let duplicities: Record<string, unknown[]> = {}
+
+  recurseObject(obj, (key, val, obj) => {
+      if (key === "id" && typeof val === "string") {
+          const entry = entities[val]
+
+          if (Array.isArray(entry)) {
+              entry.push(obj)
+              duplicities[val] = entry
+          } else {
+              entities[val] = [obj]
+          }
+      }
+  })
+
+  return duplicities
 }
 
 /**
@@ -83,5 +103,3 @@ export const stepArrays = <T extends unknown[]>(
     }
   }
 }
-
-stepArrays([["a", { a: 1 }], [1]], [[2, (x) => {}]])
