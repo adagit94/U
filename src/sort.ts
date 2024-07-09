@@ -56,3 +56,33 @@ export const sortObjectsDesc = <T extends Record<string, unknown>>(
   items: T[],
   keyPaths: string | string[]
 ): T[] => sortObjects(items, keyPaths, -1)
+
+/**
+ * @description Function converts values to strings and then sorts them.
+ * @param items Items to sort.
+ * @param order 1: ascending, -1: descending
+ * @returns Sorted array.
+ */
+export const sortAsStrings = <T>(items: T[], order: 1 | -1 = 1) => {
+  return [...items].sort((a, b) => {
+    const aString = String(a)
+    const bString = String(b)
+
+    return aString.localeCompare(bString) * order
+  })
+}
+
+/**
+ * @description Function converts values to numbers and then sorts them.
+ * @param items Items to sort.
+ * @param order 1: ascending, -1: descending
+ * @returns Sorted array.
+ */
+export const sortAsNumbers = <T>(items: T[], order: 1 | -1 = 1) => {
+  return [...items].sort((a, b) => {
+    const aNum = Number(a)
+    const bNum = Number(b)
+
+    return (aNum - bNum) * order
+  })
+}
