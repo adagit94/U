@@ -37,21 +37,24 @@ export const recurseObject = (
   })(obj)
 }
 
-export const searchForDuplicities = (obj: Record<PropertyKey, unknown> | unknown[]) => {
+export const searchForDuplicities = (
+  obj: Record<PropertyKey, unknown> | unknown[],
+  { key = "id" }: Partial<{ key: string }> = {}
+) => {
   let entities: Record<string, unknown[]> = {}
   let duplicities: Record<string, unknown[]> = {}
 
-  recurseObject(obj, (key, val, obj) => {
-      if (key === "id" && typeof val === "string") {
-          const entry = entities[val]
+  recurseObject(obj, (k, v, o) => {
+    if (k === key && (typeof v === "string" || typeof v === "number")) {
+      const entry = entities[v]
 
-          if (Array.isArray(entry)) {
-              entry.push(obj)
-              duplicities[val] = entry
-          } else {
-              entities[val] = [obj]
-          }
+      if (Array.isArray(entry)) {
+        entry.push(o)
+        duplicities[v] = entry
+      } else {
+        entities[v] = [o]
       }
+    }
   })
 
   return duplicities
