@@ -1,39 +1,48 @@
 /**
  * @description Iterates recursively object structures and triggers passed function for every value along the way.
  * @param obj An array or record object from which recursion starts.
- * @param fn Function that is triggered for every value.
+ * @param func Function that is triggered for every value. Return true to indicate that recursion should terminate.
  */
 export const recurseObject = (
   obj: object,
-  fn: (
-    key: string | number,
-    val: unknown,
-    obj: object,
-    keyPath: (string | number)[]
-  ) => void
+  func: (
+      key: string | number,
+      val: unknown,
+      obj: object,
+      keyPath: (string | number)[]
+  ) => boolean | void
 ) => {
-  ;(function recurse(obj: object, keyPath: (string | number)[] = []) {
-    if (Array.isArray(obj)) {
-      obj.forEach((item, index) => {
-        const kp = [...keyPath, index]
+  ;(function recurse(obj: object, keyPath: (string | number)[] = []): boolean | void {
+      if (Array.isArray(obj)) {
+          for (let i = 0; i < obj.length; i++) {
+              const item = obj[i]
+              const kp = [...keyPath, i]
+              const terminate = func(i, item, obj, kp)
 
-        fn(index, item, obj, kp)
+              if (terminate) return true
 
-        if (typeof item === "object" && item !== null) {
-          recurse(item, kp)
-        }
-      })
-    } else if (typeof obj === "object" && obj !== null) {
-      Object.entries(obj).forEach(([key, val]) => {
-        const kp = [...keyPath, key]
+              if (Array.isArray(item) || (typeof item === "object" && item !== null)) {
+                  const terminate = recurse(item, kp)
 
-        fn(key, val, obj, kp)
+                  if (terminate) return true
+              }
+          }
+      } else {
+          const entries = Object.entries(obj)
 
-        if (typeof val === "object" && val !== null) {
-          recurse(val, kp)
-        }
-      })
-    }
+          for (const [key, val] of entries) {
+              const kp = [...keyPath, key]
+              const terminate = func(key, val, obj, kp)
+
+              if (terminate) return true
+
+              if (Array.isArray(val) || (typeof val === "object" && val !== null)) {
+                  const terminate = recurse(val, kp)
+
+                  if (terminate) return true
+              }
+          }
+      }
   })(obj)
 }
 
@@ -58,6 +67,27 @@ export const searchForDuplicities = (
   })
 
   return duplicities
+}
+
+export function matchValues<T>(
+  obj: Record<PropertyKey, unknown> | unknown[],
+  searchKey: string,
+  values: T[],
+  comparator: (value: T, objValue: unknown) => boolean
+): [T, unknown, object][] {
+  let entities: [T, unknown, object][] = []
+
+  recurseObject(obj, (key, val, obj) => {
+      if (key !== searchKey) return
+
+      const value = values.find((value) => comparator(value, val))
+
+      if (value === undefined) return
+
+      entities.push([value, val, obj])
+  })
+
+  return entities
 }
 
 /**
