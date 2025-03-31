@@ -37,7 +37,7 @@ export const verifyAvailableSpace = (getters: { content: GetElement; container?:
   let width, height;
 
   if (contentRect && contentRect.right > containerRect.right) {
-    left = Math.max((referenceRect?.left ?? containerRect.right) - (contentRect.right - containerRect.right), 0);
+    left = Math.max((referenceRect?.left ?? containerRect.right) - (contentRect.right - containerRect.right), containerRect.left);
   }
 
   if (contentRect && contentRect.bottom > containerRect.bottom) {
