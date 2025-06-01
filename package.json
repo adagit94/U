@@ -1,6 +1,7 @@
 {
   "name": "u",
   "version": "0.0.0",
+  "type": "module",
   "description": "General purpose utility functions.",
   "scripts": {},
   "repository": {
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
   }
 }
