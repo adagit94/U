@@ -1,9 +1,23 @@
-/**
- * @description TS Extension of builtin Object.assign supporting types for any number of passed objects.
- * @param objects List of objects that should be merged into new object reference.
- * @returns New object reference with all properties from passed objects and with values overwritten in order objects were passed.
- */
-export const mergeObjects = <T extends Record<string | number, unknown>[]>(
-  ...objects: T
-): { [rec in T[number] as keyof rec]: rec[keyof rec] } =>
-  Object.assign({}, ...objects)
+export function assign2<T extends Record<PropertyKey, unknown>, U extends Record<PropertyKey, unknown>>(
+  o1: T,
+  o2: U
+): Omit<T, keyof U> & U {
+  return Object.assign({}, o1, o2);
+}
+
+export function assign3<
+  T extends Record<PropertyKey, unknown>,
+  U extends Record<PropertyKey, unknown>,
+  V extends Record<PropertyKey, unknown>
+>(o1: T, o2: U, o3: V): Omit<T, keyof (U | V)> & (Omit<U, keyof V> & V) {
+  return Object.assign({}, o1, o2, o3);
+}
+
+export function assign4<
+  T extends Record<PropertyKey, unknown>,
+  U extends Record<PropertyKey, unknown>,
+  V extends Record<PropertyKey, unknown>,
+  W extends Record<PropertyKey, unknown>,
+>(o1: T, o2: U, o3: V, o4: W): Omit<T, keyof (U | V | W)> & (Omit<U, keyof (V | W)> & (Omit<V, keyof W> & W)) {
+  return Object.assign({}, o1, o2, o3, o4);
+}
