@@ -46,7 +46,31 @@ export const recurseObject = (
   })(obj)
 }
 
-export const searchForDuplicities = (
+export const findIndices = <T>(arr: T[], comparator = (a: T, b: T) => a === b): [T, number[]][] => {
+  let registeredItems: [T, number[]][] = []
+
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    const registeredItem = registeredItems.find((registeredItem) => comparator(registeredItem[0], item))
+
+    if (registeredItem) {
+        registeredItem[1].push(i)
+    } else {
+        registeredItems.push([item, [i]])
+    }
+  }
+
+  return registeredItems
+}
+
+export const findDuplicities = <T>(arr: T[], comparator = (a: T, b: T) => a === b): [T, number[]][] => {
+  const indices = findIndices<T>(arr, comparator)
+  const duplicities = indices.filter(([_value, indices]) => indices.length > 1)
+
+  return duplicities
+}
+
+export const searchObjForDuplicities = (
   obj: Record<PropertyKey, unknown> | unknown[],
   { key = "id" }: Partial<{ key: string }> = {}
 ) => {
