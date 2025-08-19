@@ -1,6 +1,6 @@
 import { isRecord, RecursiveAssignment } from "types.js";
 
-export function assign2<T extends Record<PropertyKey, unknown>, U extends Record<PropertyKey, unknown>>(
+export function assign<T extends Record<PropertyKey, unknown>, U extends Record<PropertyKey, unknown>>(
   o1: T,
   o2: U
 ): Omit<T, keyof U> & U {
