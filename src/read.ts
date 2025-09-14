@@ -46,7 +46,28 @@ export const recurseObject = (
   })(obj)
 }
 
-export const searchForDuplicities = (
+export const searchForDuplicities = <T>(
+  items: T[],
+) => {
+  let counts: [T, number][] = []
+  
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    const itemCounts = counts.find(([registeredItem]) => registeredItem === item)
+
+    if (itemCounts !== undefined) {
+      itemCounts[1]++
+    } else {
+      counts.push([item, 1])
+    }
+  }
+  
+  const duplicities = counts.filter(([_item, count]) => count > 1)
+
+  return duplicities
+}
+
+export const searchObjForDuplicities = (
   obj: Record<PropertyKey, unknown> | unknown[],
   { key = "id" }: Partial<{ key: string }> = {}
 ) => {
