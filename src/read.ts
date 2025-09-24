@@ -1,3 +1,5 @@
+import { isEqual } from "lodash"
+
 /**
  * @description Iterates recursively object structures and triggers passed function for every value along the way.
  * @param obj An array or record object from which recursion starts.
@@ -53,7 +55,7 @@ export const searchForDuplicities = <T>(
   
   for (let i = 0; i < items.length; i++) {
     const item = items[i]
-    const itemCounts = counts.find(([registeredItem]) => registeredItem === item)
+    const itemCounts = counts.find(([registeredItem]) => isEqual(registeredItem, item))
 
     if (itemCounts !== undefined) {
       itemCounts[1]++
