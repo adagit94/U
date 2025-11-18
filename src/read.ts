@@ -1,3 +1,6 @@
+import { difference, intersection } from "filter.js"
+import { get } from "lodash"
+
 /**
  * @description Iterates recursively object structures and triggers passed function for every value along the way.
  * @param obj An array or record object from which recursion starts.
@@ -69,6 +72,28 @@ export const findDuplicities = <T>(arr: T[], comparator = (a: T, b: T) => a === 
 
   return duplicities
 }
+
+export const findChangedIndices = <T>(arr: T[], arr2: T[], comparator = (a: T, b: T) => a === b) => {
+  const intersectedItems = intersection(arr, arr2, comparator)
+  const arrIndices = findIndices(arr, comparator)
+  const arr2Indices = findIndices(arr2, comparator)
+
+  let changes: [number[], number[]][] = []
+
+  for (const intersectedItem of intersectedItems) {
+    const itemIndices = arrIndices.find(([item]) => comparator(item, intersectedItem))?.[1] ?? []
+    const item2Indices = arr2Indices.find(([item]) => comparator(item, intersectedItem))?.[1] ?? []
+
+    const changedIndices: [number[], number[]] = [difference(itemIndices, item2Indices), difference(item2Indices, itemIndices)]
+
+    changes.push(changedIndices)
+  }
+
+  return changes
+}
+
+export const findChangedIndicesByPath = <T>(arr: T[], arr2: T[], keyPath: string | string[]) =>
+  findChangedIndices(arr, arr2, (a, b) => get(a, keyPath) === get(b, keyPath))
 
 export const searchObjForDuplicities = (
   obj: Record<PropertyKey, unknown> | unknown[],
