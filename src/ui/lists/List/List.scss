@@ -1,0 +1,333 @@
+.list {
+    --list-cell-gap: 6px;
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color-light);
+
+        h1 {
+            color: var(--Digital-Greyscale-Main-008, #141414);
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 32px;
+            padding: 0 6px 0 0;
+            margin: 0;
+        }
+
+        button:not(.edit-help-btn) {
+            display: flex;
+            height: 36px;
+            padding: 6px 12px 6px 6px !important;
+            align-items: center;
+            width: fit-content !important;
+            min-width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--Digital-Colours-Light-Mode-Background-Blue, #deecfc) !important;
+            color: var(--Digital-Colours-Light-Mode-Main-Blue, #196fca);
+            text-align: center;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 22px; /* 137.5% */
+
+            .abra-icon {
+                margin: 0 0;
+            }
+        }
+    }
+
+    &__header-toolbar {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 6px;
+    }
+
+    &__header-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: var(--items-gap);
+        margin-top: 6px;
+
+        button:not(.edit-help-btn) {
+            display: flex;
+            height: 36px;
+            padding: 6px 12px 6px 6px !important;
+            align-items: center;
+            width: fit-content !important;
+            min-width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--Digital-Colours-Light-Mode-Background-Blue, #deecfc) !important;
+            color: var(--Digital-Colours-Light-Mode-Main-Blue, #196fca);
+            text-align: center;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 22px; /* 137.5% */
+
+            .abra-icon {
+                margin: 0 0;
+            }
+        }
+    }
+
+    &__columns {
+        padding-left: 0px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        align-items: center;
+        gap: var(--list-cell-gap);
+
+        div {
+            display: flex;
+            flex-grow: 1;
+            width: fit-content;
+        }
+    }
+
+    &__column {
+        color: var(--Digital-Greyscale-Main-000, #000);
+        /* Paragraphs/Semibold */
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px; /* 150% */
+        display: flex;
+        min-width: 30%;
+
+        cursor: pointer;
+    }
+    &__column i {
+        height: 24px;
+        width: 24px;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        display: flex !important;
+        height: 24px;
+        width: 24px;
+        background-position: top 50% left 50%;
+        background-image: url(../../../../img/uiimages/plm_sipky_razeni_none.svg);
+    }
+
+    &__column--desc i {
+        background-image: url(../../../../img/uiimages/plm_sipky_razeni_down.svg);
+    }
+    &__column--asc i {
+        background-image: url(../../../../img/uiimages/plm_sipky_razeni_up.svg);
+    }
+
+    &__item-content {
+        flex: 1 1 0;
+        overflow: hidden;
+    }
+
+    ul {
+        list-style: none;
+        //margin: 12px 0 0 0;
+        margin: 0 0 0 0;
+        padding: 0;
+        width: 100%;
+
+        > li {
+            position: relative;
+            display: flex;
+            width: 100%;
+            min-height: 47px;
+            padding: 0;
+            flex-direction: row;
+            align-items: center;
+            gap: var(--list-cell-gap);
+            align-self: stretch;
+            cursor: pointer;
+            background: var(--Digital-Greyscale-Main-100, #fff);
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color-light);
+
+            .list-item-buttonSpace {
+                display: none;
+                width: fit-content;
+                margin-right: var(--list-cell-gap);
+            }
+
+            > span {
+                overflow: hidden;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: var(--list-cell-gap);
+
+                .dx-icon-drag-abra {
+                    margin-top: 0px;
+                    width: 24px;
+                    margin-right: 0px;
+                    max-width: 24px;
+                    min-width: 24px;
+                }
+
+                > div {
+                    display: flex;
+                    flex-grow: 1;
+                    flex-direction: row;
+                    align-items: center;
+                    flex-wrap: nowrap;
+
+                    span {
+                        margin-top: 0px;
+                        padding: 2px 6px;
+                        width: fit-content;
+                        display: flex;
+                        height: 30px;
+                        flex-direction: row;
+                        align-content: center;
+                        align-items: center;
+                        flex-wrap: nowrap;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .edit-clear-btn {
+                width: 36px;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 6px;
+                border: none;
+                background: transparent;
+                background-color: #fee3e3;
+
+                .icon-clear {
+                    background-color: initial;
+
+                    background-image: url("data:image/svg+xml,%3Csvg width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Crect x=%276%27 y=%279%27 width=%2712%27 height=%2712%27 stroke=%27%23000000%27 stroke-width=%271.5%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M5 6L19 6%27 stroke=%27%23000000%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M15 5C15 3.34315 13.6569 2 12 2C10.3431 2 9 3.34315 9 5%27 stroke=%27%23000000%27 stroke-width=%271.5%27/%3E%3C/svg%3E");
+                    filter: invert(33%) sepia(74%) saturate(1521%) hue-rotate(330deg)
+                        brightness(116%) contrast(106%) !important;
+                    background-position: top 3px right 50%;
+                    background-repeat: no-repeat;
+                    background-size: 24px;
+                    border-radius: 6px !important;
+                    color: var(--digital-greyscale-main-096);
+                    display: inline-block !important;
+                    height: var(--form-item-bg-height);
+                    width: var(--form-item-bg-height);
+                }
+            }
+
+            .abra-icon {
+                margin: 0 0;
+            }
+
+            .dx-icon-drag-abra {
+                position: absolute;
+                top: calc(50% - 12px);
+                left: 0;
+                background: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9.5" cy="6.5" r="0.75" fill="%23A3A3A3" stroke="%23A3A3A3" stroke-width="1.5"/><circle cx="14.5" cy="6.5" r="1.5" fill="%23A3A3A3"/><circle cx="9.5" cy="12" r="1.5" fill="%23A3A3A3"/><circle cx="9.5" cy="17.5" r="1.5" fill="%23A3A3A3"/><circle cx="14.5" cy="12" r="1.5" fill="%23A3A3A3"/><circle cx="14.5" cy="17.5" r="1.5" fill="%23A3A3A3"/></svg>');
+                cursor: grab;
+
+                & + * {
+                    position: relative;
+                    left: 34px;
+                }
+            }
+
+            .edit-copy-btn {
+                width: 36px;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 6px;
+                border: none;
+                background: transparent;
+            }
+        }
+
+        > li:hover {
+            background: var(--Digital-Colors-Light-mode-Ultra-light, #f0f7fe);
+
+            > .list-item-buttonSpace {
+                display: flex;
+            }
+        }
+    }
+
+    .noItemsInfo {
+        color: #979797;
+        font-size: 14px;
+        font-style: italic;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.formGroupsSettings {
+    flex-grow: unset !important;
+    width: calc(100% - 34px) !important;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    overflow: auto;
+    position: relative;
+    margin-bottom: 5px;
+    padding: 0px;
+
+    .editor-list {
+        .list {
+            ul > li {
+                min-height: 47px;
+
+                > span {
+                    > div {
+                        flex-grow: unset !important;
+                        width: calc(100% - 34px) !important;
+                    }
+                }
+            }
+
+            &__columns {
+                padding-left: 0px;
+                display: flex;
+                gap: var(--list-cell-gap);
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-content: center;
+                padding-top: 0px;
+                height: 0px;
+                position: relative;
+                top: -37px;
+                left: 60px;
+                width: 25px;
+                justify-content: center;
+
+                button {
+                    padding: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                }
+
+                .editFormGroupBtn {
+                    position: absolute;
+                    top: -2px;
+                    left: -60px;
+                }
+            }
+        }
+    }
+}
