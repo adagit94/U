@@ -1,14 +1,17 @@
 {
-  "name": "u",
+  "name": "archive",
   "version": "0.0.0",
   "type": "module",
-  "description": "General purpose utility functions.",
+  "description": "Universal archive of both, general purpose utility functions, and abstractions intended for more specific purposes.",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adagit94/U.git"
+    "url": "git+https://github.com/adagit94/Archive.git"
   },
   "keywords": [
+    "archive",
+    "collection",
+    "library",
     "utility",
     "utils",
     "helpers"
@@ -16,9 +19,9 @@
   "author": "Adam Pelc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adagit94/U/issues"
+    "url": "https://github.com/adagit94/Archive/issues"
   },
-  "homepage": "https://github.com/adagit94/U#readme",
+  "homepage": "https://github.com/adagit94/Archive#readme",
   "dependencies": {
     "lodash": "^4.17.21",
     "tslib": "^2.8.1"
