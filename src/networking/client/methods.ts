@@ -15,5 +15,7 @@ const patch: Patch = (url, init) => fetch(url, { ...init, method: "PATCH" });
 type Delete = Fetch<Omit<FetchReqInit, "method" | "body">>;
 const del: Delete = (url, init) => fetch(url, { ...init, method: "DELETE", body: undefined });
 
-export type { Post, Get, Put, Patch, Delete };
+type Method = Post | Get | Put | Patch | Delete
+
+export type { Post, Get, Put, Patch, Delete, Method };
 export { post, get, put, patch, del };

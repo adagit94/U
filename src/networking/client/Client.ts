@@ -1,6 +1,6 @@
 import * as methods from "./methods.js";
 
-type ClientMethod<T extends methods.Post | methods.Get | methods.Put | methods.Patch | methods.Delete> = (
+type ClientMethod<T extends methods.Method> = (
   path: string,
   init: Parameters<T>[1]
 ) => ReturnType<T>;
