@@ -28,9 +28,10 @@ export const safeReq = async <T>(req: () => Promise<Response>, parseRes: (res: R
     const res = await checkResStatus(await req());
     const parsedRes = await parseRes(res);
 
-    return { data: parsedRes };
+    return { success: true, data: parsedRes };
   } catch (error) {
     return {
+      success: false,
       error,
     };
   }
