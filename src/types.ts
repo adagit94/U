@@ -52,5 +52,17 @@ type Rec = RecordOptionals<{ a: number; b: string }, "b"> // { a: number; b?: st
 export type RecordOptionals<T extends Record<PropertyKey, unknown>, U extends keyof T> = Omit<T, U> &
   Partial<Pick<T, U>>;
 
-export const isRecord = (x: unknown): x is Record<PropertyKey, unknown> =>
+type SafeResultSuccess<T> = {
+  success: true;
+  data: T;
+};
+
+type SafeResultFailure = {
+  success: false;
+  error: unknown;
+};
+
+export type SafeResult<T> = SafeResultSuccess<T> | SafeResultFailure;
+
+export const isPlainObject = (x: unknown): x is Record<PropertyKey, unknown> =>
   typeof x === "object" && x !== null && !Array.isArray(x);

@@ -1,4 +1,4 @@
-import { get } from "lodash"
+import { get } from "lodash";
 
 /**
  * @description Function sorts standard records (JS objects) and compares values of same type (number or string) under some path.
@@ -12,28 +12,28 @@ export const sortObjects = <T extends Record<string, unknown>>(
   keyPaths: string | string[],
   order: 1 | -1 = 1
 ): T[] => {
-  const paths = Array.isArray(keyPaths) ? keyPaths : [keyPaths]
+  const paths = Array.isArray(keyPaths) ? keyPaths : [keyPaths];
 
   return [...items].sort((a, b) => {
     for (const path of paths) {
-      const aVal = get(a, path)
-      const bVal = get(b, path)
+      const aVal = get(a, path);
+      const bVal = get(b, path);
 
-      if (aVal === bVal) continue
+      if (aVal === bVal) continue;
 
       if (typeof aVal === "string" && typeof bVal === "string") {
-        const comparison = aVal.localeCompare(bVal)
+        const comparison = aVal.localeCompare(bVal);
 
-        if (comparison !== 0) return comparison * order
+        if (comparison !== 0) return comparison * order;
       } else if (typeof aVal === "number" && typeof bVal === "number") {
-        if (aVal < bVal) return -1 * order
-        if (aVal > bVal) return 1 * order
+        if (aVal < bVal) return -1 * order;
+        if (aVal > bVal) return 1 * order;
       }
     }
 
-    return 0
-  })
-}
+    return 0;
+  });
+};
 
 /**
  * @description Function sorts standard records (JS objects) and compares values of same type (number or string) under some path.
@@ -41,10 +41,8 @@ export const sortObjects = <T extends Record<string, unknown>>(
  * @param keyPaths Path or paths that are used sequentialy to compare values in case of preceding comparison being equal.
  * @returns Sorted records.
  */
-export const sortObjectsAsc = <T extends Record<string, unknown>>(
-  items: T[],
-  keyPaths: string | string[]
-): T[] => sortObjects(items, keyPaths)
+export const sortObjectsAsc = <T extends Record<string, unknown>>(items: T[], keyPaths: string | string[]): T[] =>
+  sortObjects(items, keyPaths);
 
 /**
  * @description Function sorts standard records (JS objects) and compares values of same type (number or string) under some path.
@@ -52,10 +50,8 @@ export const sortObjectsAsc = <T extends Record<string, unknown>>(
  * @param keyPaths Path or paths that are used sequentialy to compare values in case of preceding comparison being equal.
  * @returns Sorted records.
  */
-export const sortObjectsDesc = <T extends Record<string, unknown>>(
-  items: T[],
-  keyPaths: string | string[]
-): T[] => sortObjects(items, keyPaths, -1)
+export const sortObjectsDesc = <T extends Record<string, unknown>>(items: T[], keyPaths: string | string[]): T[] =>
+  sortObjects(items, keyPaths, -1);
 
 /**
  * @description Function converts values to strings and then sorts them.
@@ -65,12 +61,12 @@ export const sortObjectsDesc = <T extends Record<string, unknown>>(
  */
 export const sortAsStrings = <T>(items: T[], order: 1 | -1 = 1) => {
   return [...items].sort((a, b) => {
-    const aString = String(a)
-    const bString = String(b)
+    const aString = String(a);
+    const bString = String(b);
 
-    return aString.localeCompare(bString) * order
-  })
-}
+    return aString.localeCompare(bString) * order;
+  });
+};
 
 /**
  * @description Function converts values to numbers and then sorts them.
@@ -80,9 +76,9 @@ export const sortAsStrings = <T>(items: T[], order: 1 | -1 = 1) => {
  */
 export const sortAsNumbers = <T>(items: T[], order: 1 | -1 = 1) => {
   return [...items].sort((a, b) => {
-    const aNum = Number(a)
-    const bNum = Number(b)
+    const aNum = Number(a);
+    const bNum = Number(b);
 
-    return (aNum - bNum) * order
-  })
-}
+    return (aNum - bNum) * order;
+  });
+};
