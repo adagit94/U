@@ -9,27 +9,28 @@ export const readRes = async (res: Response) => {
   try {
     const contentType = res.headers.get("content-type");
 
-    switch (contentType) {
-      case "application/json":
+    if (contentType) {
+      if (contentType.startsWith("application/json")) {
         return await res.json();
-
-      case "text/plain":
+      } else if (contentType.startsWith("text/plain")) {
         return await res.text();
+      }
+
+      throw new Error(`Content-Type ${contentType} not supported.`);
     }
 
-    throw new Error(`Content-Type ${contentType} not supported.`);
+    throw new Error(`Content-Type header is empty.`);
   } catch (err) {
     throw new Error(`Failed to read response: ${err}`);
   }
 };
 
-export const safeReq = async <T>(req: () => Promise<Response>, parseRes: (res: Response) => T): SafeRes<T> => {
+export const safeReq = async <T>(req: () => Promise<T>): SafeRes<T> => {
   try {
-    const res = await checkResStatus(await req());
-    const parsedRes = await parseRes(res);
-
-    return { success: true, data: parsedRes };
+    return { success: true, data: await req() };
   } catch (error) {
+    console.error(error);
+
     return {
       success: false,
       error,
