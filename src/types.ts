@@ -64,5 +64,4 @@ type SafeResultFailure = {
 
 export type SafeResult<T> = SafeResultSuccess<T> | SafeResultFailure;
 
-export const isPlainObject = (x: unknown): x is Record<PropertyKey, unknown> =>
-  typeof x === "object" && x !== null && !Array.isArray(x);
+
