@@ -64,4 +64,4 @@ type SafeResultFailure = {
 
 export type SafeResult<T> = SafeResultSuccess<T> | SafeResultFailure;
 
-
+export type GenRecord<Keys extends string, Value> = { [K in Keys]: Value };

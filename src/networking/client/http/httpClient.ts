@@ -2,11 +2,11 @@ import * as methods from "./httpMethods.js";
 
 type HttpClientMethod<T extends methods.Method> = (path: string, init: Parameters<T>[1]) => ReturnType<T>;
 
-type CreateHttpClientSettings = {
+export type CreateHttpClientSettings = {
   urlBase: string;
 };
 
-interface IHttpClient {
+export interface IHttpClient {
   post: HttpClientMethod<methods.Post>;
   get: HttpClientMethod<methods.Get>;
   put: HttpClientMethod<methods.Put>;
