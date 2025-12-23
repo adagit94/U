@@ -1,25 +1,27 @@
 import { Methods, MethodWithoutBody } from "networking/client/http/httpMethods.js";
-import { GenRecord, Variadic } from "types.js";
+import { SchemaConstraint, SchemaValue } from "schemas/types.js";
+import { GenRecord } from "types.js";
 
-type GenParsersConstraint<Keys extends string> = GenRecord<Keys, (input: unknown) => unknown>;
+type GenSchemasConstraint<Keys extends string> = GenRecord<Keys, SchemaConstraint>;
 
-type RouteMethodParser = "req" | "res" | "query";
+type RouteMethodSchemaKey = "req" | "res" | "query";
 
-type RouteMethodConstraint<Parsers extends RouteMethodParser = RouteMethodParser> = {
-  handler: Variadic<unknown>;
-  parsers: GenParsersConstraint<Parsers>;
+type RouteMethodConstraint<SchemasKeys extends RouteMethodSchemaKey = RouteMethodSchemaKey> = {
+  schemas: GenSchemasConstraint<SchemasKeys>;
 };
 
 export type RouteMethodsConstraint = {
   [Method in keyof Methods]: Method extends MethodWithoutBody
-    ? RouteMethodConstraint<Exclude<RouteMethodParser, "req">>
+    ? RouteMethodConstraint<Exclude<RouteMethodSchemaKey, "req">>
     : RouteMethodConstraint;
 };
 
+export type ComposeRoutePathConstraint = (params?: Partial<SchemaValue<RouteConstraint["schemas"]["path"]>>) => string;
+
 export type RouteConstraint = {
-  composePath: Variadic<string>;
   methods: Partial<RouteMethodsConstraint>;
-  parsers: GenParsersConstraint<"path">;
+  schemas: GenSchemasConstraint<"path">;
+  composePath: ComposeRoutePathConstraint
 };
 
 export type RoutesConstraint = Record<string, RouteConstraint>;
