@@ -1,18 +1,25 @@
-import { HttpMethod } from "networking/types.js";
+import { Methods, MethodWithoutBody } from "networking/client/http/httpMethods.js";
 import { GenRecord, Variadic } from "types.js";
 
-type GenParsersConstraint<Keys extends string> = Partial<GenRecord<Keys, (input: unknown) => unknown>>;
+type GenParsersConstraint<Keys extends string> = GenRecord<Keys, (input: unknown) => unknown>;
 
-type RouteMethodConstraint = {
+type RouteMethodParser = "req" | "res" | "query";
+
+type RouteMethodConstraint<Parsers extends RouteMethodParser = RouteMethodParser> = {
   handler: Variadic<unknown>;
-  parsers?: GenParsersConstraint<"req" | "res" | "query">;
+  parsers: GenParsersConstraint<Parsers>;
 };
 
-type RouteConstraint = {
-  path: string;
-  methods: Partial<Record<HttpMethod, RouteMethodConstraint>>;
-  parsers?: GenParsersConstraint<"path">;
+export type RouteMethodsConstraint = {
+  [Method in keyof Methods]: Method extends MethodWithoutBody
+    ? RouteMethodConstraint<Exclude<RouteMethodParser, "req">>
+    : RouteMethodConstraint;
+};
+
+export type RouteConstraint = {
+  composePath: Variadic<string>;
+  methods: Partial<RouteMethodsConstraint>;
+  parsers: GenParsersConstraint<"path">;
 };
 
 export type RoutesConstraint = Record<string, RouteConstraint>;
-

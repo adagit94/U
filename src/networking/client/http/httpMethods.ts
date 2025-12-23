@@ -29,6 +29,12 @@ type Trace = Fetch<Omit<FetchReqInit, "method" | "body">>;
 const trace: Trace = (url, init) => fetch(url, { ...init, method: HttpMethod.Trace, body: undefined });
 
 type Method = Post | Get | Put | Patch | Delete | Options | Connect | Head | Trace
+// type MethodWithoutBody = Get | Delete | Connect | Head | Trace
+type MethodWithoutBody = "get" | "delete" | "connect" | "head" | "trace"
+type Methods = { post: Post, get: Get, put: Put, patch: Patch, delete: Delete, options: Options, connect: Connect, head: Head, trace: Trace };
 
-export type { Post, Get, Put, Patch, Delete, Options, Connect, Head, Trace, Method };
+const methods: Methods = { post, get, put, patch, delete: del, options, connect, head, trace }
+
+export type { Post, Get, Put, Patch, Delete, Options, Connect, Head, Trace, Method, MethodWithoutBody, Methods };
 export { post, get, put, patch, del, options, connect, head, trace };
+export default methods
