@@ -1,4 +1,5 @@
-import { isPlainObject, RecursiveAssignment } from "types.js";
+import { isRecord } from "assert.js";
+import { RecursiveAssignment } from "types.js";
 
 export function assign<T extends Record<PropertyKey, unknown>, U extends Record<PropertyKey, unknown>>(
   o1: T,
@@ -38,7 +39,7 @@ export function deepAssign<T extends Record<PropertyKey, unknown>, U extends Rec
 
   for (const key of keys) {
     if (key in o1 && key in o2) {
-      if (isPlainObject(o1[key]) && isPlainObject(o2[key])) {
+      if (isRecord(o1[key]) && isRecord(o2[key])) {
         const x = o1[key] as T[keyof T] & Record<PropertyKey, unknown>;
         const y = o2[key] as U[keyof U] & Record<PropertyKey, unknown>;
 
