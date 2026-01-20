@@ -1,5 +1,5 @@
-import { createQueue, QueueTask } from "queues/queue";
-import { describe, expect, test } from "vitest";
+import { createQueue, QueueTask } from "./queues.js";
+import { expect, test } from "vitest";
 
 type Task = QueueTask & { id: number };
 

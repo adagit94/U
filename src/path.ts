@@ -1,4 +1,4 @@
-import { isPlainObject } from "types.js";
+import { isRecord } from "assert.js";
 
 export const changeIndex = <T>(items: T[], currentIndex: number, newIndex: number) => {
   items = [...items];
@@ -34,7 +34,7 @@ export const walkPath = (obj: Record<string | number, unknown>, path: (string | 
   while (i < path.length) {
     const pathSegment = path[i];
 
-    if (isPlainObject(value) && Object.hasOwn(value, pathSegment)) {
+    if (isRecord(value) && Object.hasOwn(value, pathSegment)) {
       value = value[pathSegment];
       i++;
     } else {

@@ -1,19 +1,21 @@
-export function handleReqParams<T extends z.ZodType>(
+import { SchemaConstraint } from "schemas/types.js";
+
+export function handleReqParams<T extends SchemaConstraint>(
   req: Request,
   res: Response,
   schemas: { path: T },
 ): { path: z.infer<T> } | null;
-export function handleReqParams<T extends z.ZodType>(
+export function handleReqParams<T extends SchemaConstraint>(
   req: Request,
   res: Response,
   schemas: { query: T },
 ): { query: z.infer<T> } | null;
-export function handleReqParams<T extends z.ZodType, U extends z.ZodType>(
+export function handleReqParams<T extends SchemaConstraint, U extends SchemaConstraint>(
   req: Request,
   res: Response,
   schemas: { path: T; query: U },
 ): { path: z.infer<T>; query: z.infer<U> } | null;
-export function handleReqParams<T extends z.ZodType, U extends z.ZodType>(
+export function handleReqParams<T extends SchemaConstraint, U extends SchemaConstraint>(
   req: Request,
   res: Response,
   schemas: { path: T } | { query: U } | { path: T; query: U },
@@ -49,7 +51,7 @@ export function handleReqParams<T extends z.ZodType, U extends z.ZodType>(
   return null;
 }
 
-const handleParams = <T extends "path" | "query", U extends z.ZodType>(
+const handleParams = <T extends "path" | "query", U extends SchemaConstraint>(
   req: Request,
   res: Response,
   type: T,

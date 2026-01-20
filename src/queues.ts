@@ -1,4 +1,4 @@
-import { addAtIndex } from "./path";
+import { addAtIndex } from "./path.js";
 
 enum QueueMode {
   Normal,

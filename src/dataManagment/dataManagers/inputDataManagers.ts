@@ -1,9 +1,7 @@
 import { IDataFilter, IDataLoader, IPager, PagerStateBase } from "dataManagment/DataManagmentTypes";
 import { createDataSource, DataSourceStateBase, IDataSource } from "dataManagment/dataSources/dataSources";
 import { get, isEqual } from "lodash";
-import { createQueue, ExecuteTask, IQueue, QueueTask } from "queues";
-import { GetState, SetState } from "state";
-import { PrimitiveValue } from "types";
+import { createQueue, ExecuteTask, IQueue, QueueTask } from "../../queues";
 
 type RecordValue = Record<string | number, unknown>;
 
